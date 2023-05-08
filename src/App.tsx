@@ -7,6 +7,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "./view/Dashboard";
 import UserDashboard from "./view/UserDashboard";
 import Header from "./common/Header";
+import Academics from "./view/Academics";
 
 function App() {
   const [initialState, SetinitialState] = useState<string | undefined>(
@@ -68,10 +69,12 @@ const MainRouter = ({
       {hasUser ? (
         <>
           <Route path="/dashboard/*" element={<UserDashboard />} />
+          
         </>
       ) : (
         <>
           <Route path="/registration-login/*" element={<Dashboard />} />
+          {/* <Route path="/acdemic/*" element={<Academics />} /> */}
         </>
       )}
       <Route path="/" element={<Navigate replace to={initialState} />} />

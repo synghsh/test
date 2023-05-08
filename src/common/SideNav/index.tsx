@@ -6,12 +6,19 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import DensityMediumIcon from "@mui/icons-material/DensityMedium";
+import { useLocation, useNavigate } from "react-router-dom";
+import "./sideNav.css";
+import { environment } from "../../envirnment";
+import CircleIcon from "@mui/icons-material/Circle";
 
-const SideNav = () => {
-  const menuItem: any = ["Dashboard", "Academics"];
-
+const SideNav = ({}: SideNavProps) => {
+  let navigateTo = useNavigate();
+  const navigate = (url: any) => {
+    navigateTo(url);
+  };
+  const sideNav = environment.side_nav;
   return (
     <div
       style={{
@@ -112,42 +119,127 @@ const SideNav = () => {
             ACADEMIC YEAR: 2023
           </Typography>
         </Grid>
-
-        {!!menuItem &&
-          menuItem.map((item: any, index: any) => {
-            <Grid sx={{ backgroundColor: "#1572E8" }} key={index}>
-              {/* <div>
-              <Icon
-                style={{
-                  color: "#4EA6DF",
-                  fontSize: 15,
-                  marginRight: 6,
-                  marginTop: 10,
-                }}
-                fontSize="small"
-              >
-                {item.icon}
-              </Icon>
-            </div> */}
-
-              <div>
-                <Typography
-                  sx={{
-                    fontWeight: "800",
-                    fontSize: 24,
-                    fontFamily: "Mukta Poppins, sans-serif",
-                    color: "#fff",
-                    //mb: 10,
-                  }}
-                >
-                  {item}
-                </Typography>
-              </div>
-            </Grid>;
-          })}
+        {!!sideNav &&
+          sideNav.map((item, index) => (
+            <>
+              <SideNavMain
+                item={item}
+                key={index}
+                sideNav={sideNav}
+                navigate={navigate}
+              />
+            </>
+          ))}
       </Grid>
     </div>
   );
 };
 
 export default SideNav;
+
+interface SideNavProps {}
+const SideNavMain = ({ item, sideNav, navigate }: SideNavMainProps) => {
+  const [openSubMenu, setOpenSubMenu] = useState<boolean>(false);
+  const sideNavChildMenu = (data: any) => {
+    if (
+      !!sideNav &&
+      sideNav.map((t) => t.menuItem.length > 0 && t.name === data)
+    ) {
+      setOpenSubMenu(true);
+    }
+  };
+  const location = useLocation();
+  return (
+    <>
+      <Grid
+        item
+        xs={12}
+        sx={{
+          color: location.pathname === item ? "#979DA1" : "#fff",
+          backgroundColor: location.pathname === item ? "#fff" : "#1572E8",
+        }}
+        // key={index}
+        className="side-nav-item"
+        onClick={() => sideNavChildMenu(item.name)}
+        // pt={1}
+        mt={1}
+        ml={3}
+      >
+        <div>
+          <Icon
+            style={{
+              color: "#4EA6DF",
+              fontSize: 15,
+              marginRight: 6,
+              marginTop: 10,
+            }}
+            fontSize="small"
+          >
+            {item.icon}
+          </Icon>
+        </div>
+        <div>{item.name}</div>
+      </Grid>
+      {openSubMenu === true &&
+        sideNav
+          .find((m) => m.name === item.name)
+          ?.menuItem.map((props: any, index2: any) => (
+            <SideNavChild
+              item={item}
+              sideNav={sideNav}
+              key={index2}
+              props={props}
+              navigate={navigate}
+            />
+          ))}
+    </>
+  );
+};
+
+interface SideNavMainProps {
+  item?: any;
+  sideNav: any[];
+  navigate?: any;
+}
+const SideNavChild = ({
+  props,
+  item,
+  sideNav,
+  navigate,
+}: SideNavChildProps) => {
+  return (
+    <>
+      <Grid
+        item
+        xs={12}
+        // key={index2}
+        // className="side-nav-item"
+        onClick={() => navigate(item.url)}
+        pt={1}
+        mt={1}
+        ml={3}
+        pl={5}
+        container
+        direction={"row"}
+      >
+        <div
+          style={{
+            width: "10px",
+            height: "10px",
+            borderRadius: "50%",
+            backgroundColor: "#A2A2A7",
+            marginTop: 5,
+          }}
+        ></div>
+        <div style={{ paddingLeft: 10 }}>{props.name}</div>
+      </Grid>
+    </>
+  );
+};
+
+interface SideNavChildProps {
+  item?: any;
+  sideNav: any[];
+  props?: any;
+  navigate?: any;
+}
