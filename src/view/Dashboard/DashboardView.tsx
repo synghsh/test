@@ -23,6 +23,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import Marquee from "react-fast-marquee";
+import { useNavigate } from "react-router-dom";
 
 const DashboardView = () => {
   const [value, setValue] = React.useState(0);
@@ -40,6 +41,10 @@ const DashboardView = () => {
   const requestSearch = (props: string) => {};
   const cancelSearch = () => {
     setSearched("");
+  };
+  let navigateTo = useNavigate();
+  const navigate = (url: any) => {
+    navigateTo(url);
   };
   return (
     <Paper sx={{ display: "flex", padding: 5, margin: 10 }} elevation={3}>
@@ -93,17 +98,19 @@ const DashboardView = () => {
               label="Login to SMS Admin"
               icon={<LoginIcon />}
               iconPosition="start"
-              // onClick={()=>}
+              onClick={()=> navigate('/login/registration-login/')}
             />
             <Tab
               label="Login to SMS"
               icon={<LoginIcon />}
               iconPosition="start"
+              onClick={()=> navigate('/login/registration-login/')}
             />
             <Tab
               label="Login to e-Portal"
               icon={<LoginIcon />}
               iconPosition="start"
+              onClick={()=> navigate('/login/registration-login/')}
             />
           </Tabs>
         </Grid>

@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import DensityMediumIcon from "@mui/icons-material/DensityMedium";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./sideNav.css";
-import { environment } from "../../envirnment";
+import { environment } from "../../environment";
 import CircleIcon from "@mui/icons-material/Circle";
 
 const SideNav = ({}: SideNavProps) => {

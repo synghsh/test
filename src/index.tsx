@@ -18,7 +18,7 @@ const root = ReactDOM.createRoot(
 );
 export const stores = ConfigureStore();
 root.render(
-  <React.StrictMode>
+
     <CookiesProvider>
       <Provider store={stores}>
         <BrowserRouter>
@@ -32,7 +32,7 @@ root.render(
         </BrowserRouter>
       </Provider>
     </CookiesProvider>
-  </React.StrictMode>
+
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -13,13 +13,6 @@ const Academics = () => {
         <Route path="/acdemic/acdemic-routine/" element={<Routine />} />
         <Route path="/acdemic/acdemic-class-plan/" element={<ClassPlan />} />
         <Route path="/acdemic/acdemic-class-log/" element={<ClassLog />} />
-
-        <Route
-          path="/"
-          element={
-            <Navigate to={`/${pathname.split("/")[1]}/acdemic-routine`} />
-          }
-        />
       </Routes>
     </>
   );

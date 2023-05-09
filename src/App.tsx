@@ -8,6 +8,7 @@ import Dashboard from "./view/Dashboard";
 import UserDashboard from "./view/UserDashboard";
 import Header from "./common/Header";
 import Academics from "./view/Academics";
+import Login from "./view/Login";
 
 function App() {
   const [initialState, SetinitialState] = useState<string | undefined>(
@@ -62,7 +63,7 @@ export default App;
 
 const MainRouter = ({
   hasUser,
-  initialState = "/registration-login/",
+  initialState = "/login/",
 }: MainRouterProps) => {
   return (
     <Routes>
@@ -73,8 +74,7 @@ const MainRouter = ({
         </>
       ) : (
         <>
-          <Route path="/registration-login/*" element={<Dashboard />} />
-          {/* <Route path="/acdemic/*" element={<Academics />} /> */}
+          <Route path="/login/*" element={<Dashboard />} />
         </>
       )}
       <Route path="/" element={<Navigate replace to={initialState} />} />

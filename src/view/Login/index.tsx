@@ -1,9 +1,21 @@
 import React from 'react'
-import LoginView from './LoginView'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import UserLogin from './UserLogin';
 
-const Login  = () => {
+
+const Login = () => {
+    const { pathname } = useLocation();
+    const location = useLocation();
   return (
-    <LoginView/>
+    <>
+      <Routes>
+      <Route path="login" element={<UserLogin />} />
+      <Route
+        path="/"
+        element={<Navigate to={`/${pathname.split("/")[1]}/login`} />}
+      />
+    </Routes>
+    </>
   )
 }
 
